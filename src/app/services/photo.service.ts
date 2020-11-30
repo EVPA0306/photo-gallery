@@ -38,6 +38,23 @@ export class PhotoService {
     });
   }
 
+  public async deletePicture(photo: Photo, position: number) {
+    
+    this.photos.splice(position,1);
+
+    Storage.set({
+      key: this.PHOTO_STORAGE,
+      value: JSON.stringify(this.photos)
+    });
+
+    const fileName = photo.filepath.substr(photo.filepath.lastIndexOf('/') + 1);
+
+    await Filesystem.deleteFile({
+      path: fileName,
+      directory: FilesystemDirectory.Data
+    });
+  }
+
   private async savePicture(cameraPhoto: CameraPhoto) {
 
     const base64Data = await this.readAsBase64(cameraPhoto);
