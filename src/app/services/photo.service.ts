@@ -48,6 +48,7 @@ export class PhotoService {
     });
 
     const fileName = photo.filepath.substr(photo.filepath.lastIndexOf('/') + 1);
+    console.log(fileName);
 
     await Filesystem.deleteFile({
       path: fileName,
@@ -84,8 +85,7 @@ export class PhotoService {
     const photoList = await Storage.get({ key: this.PHOTO_STORAGE });
     this.photos = JSON.parse(photoList.value) || [];
   
-    //
-        // Display the photo by reading into base64 format
+    // Display the photo by reading into base64 format
     if  (!this.platform.is('hybrid')) {
       for (let photo of this.photos) {
         // Read each saved photo's data from the Filesystem

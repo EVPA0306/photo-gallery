@@ -9,9 +9,4 @@ import { EmailService } from '../services/email.service';
 export class Tab1Page {
 
   constructor(public emailService: EmailService) {}
-
-  public checkEmailClient() {
-    this.emailService.checkEmailClient();
-  }
-
 }

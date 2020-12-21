@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
+import { EmailService } from '../services/email.service';
 import { PhotoService, Photo } from '../services/photo.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { PhotoService, Photo } from '../services/photo.service';
 export class Tab2Page {
 
   constructor(public photoService: PhotoService, 
-    public actionSheetController: ActionSheetController) {}
+    public actionSheetController: ActionSheetController,
+    public emailService: EmailService) {}
 
   public addPhotoToGallery() {
     this.photoService.addNewToGallery();
@@ -26,6 +28,14 @@ export class Tab2Page {
         icon: 'trash',
         handler: () => {
           this.photoService.deletePicture(photo, position);
+        }
+      },{
+        text: 'Send',
+        role: 'send',
+        icon: 'send',
+        handler: () => {
+          //TODO: Implement send via Email
+          this.emailService.emailPicture(photo);
         }
       }, {
         text: 'Cancel',
